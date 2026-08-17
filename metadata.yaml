@@ -1,6 +1,31 @@
-name: helloworld # 插件唯一识别名，以 astrbot_plugin_ 前缀开头
-display_name: helloworld # 用于展示的名字，可以是方便人类阅读的名字（需要版本 >= v4.5.0，低版本不会报错，请放心填写）
-desc: AstrBot 插件示例。 # 插件简短描述
-version: v1.3.0 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: Soulter # 作者
-repo: https://github.com/Soulter/helloworld # 插件的仓库地址
+name: astrbot_plugin_admin_card
+display_name: QQ 群管体验卡
+short_desc: 皇帝轮流做，今年到我家
+desc: 让普通群友能体验有限期的群管理员身份，支持手动发卡/撤卡/抽卡、等级达标自动发卡、周期随机轮换管理员。
+version: v1.0.0
+author: Foolllll
+author_url: https://github.com/Foolllll-J
+repo: https://github.com/Foolllll-J/astrbot_plugin_admin_card
+support_platforms:
+  - aiocqhttp
+category: 娱乐
+tags:
+  - 群管理
+  - 体验卡
+astrbot_version: ">=4.10.4"
+help: |
+  管理体验卡插件：让普通群友限时体验群管理员身份，到期自动回收，支持按群配置等级达标发卡与周期轮换管理员等玩法。
+
+  基础指令（所有群友）：
+  - /使用体验卡 [序号]：激活未使用的体验卡（序号对应天数组，不写则全部合并激活，天数累加）
+  - /我的体验卡：查看自己的卡（序号与使用/撤销对应）
+  - /查看体验卡 @目标：管理员/特权用户查看对方体验卡
+  - /查看本轮：查看当前周期轮值情况与下次轮换倒计时
+
+  管理指令（Bot 管理员或特权用户）：
+  - /管理体验卡 [天数] @目标 [@目标 ...]：发放体验卡，天数支持小数（如 0.5）
+  - /撤销体验卡 [序号|0] [@目标]：撤销体验卡；序号=撤销该组一张未使用卡；0=终止对方正在体验的管理期限（未使用卡保留）；不写=全部撤销
+  - /体验卡名单：查看本群体验中与持卡用户汇总
+  - /抽体验卡 [天数]：从等级达标成员中随机抽取一人发放体验卡，不写天数则用规则默认时长
+  - /跳过本轮：下掉现任轮值管理员，本周期空置并顺延
+  - /重抽本轮：立即重新抽签（下掉现任并重抽，周期重新计时）

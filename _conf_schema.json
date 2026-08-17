@@ -1,0 +1,161 @@
+{
+    "privileged_users": {
+        "description": "特权用户",
+        "hint": "除 Bot 管理员外，特权用户也可执行发卡、撤卡、抽卡、查看名单、跳过轮换等管理操作。",
+        "type": "list",
+        "default": []
+    },
+    "rules": {
+        "type": "template_list",
+        "description": "群管体验规则",
+        "hint": "可自由添加多条规则。每个群仅生效第一条，群号留空表示该规则不启用。",
+        "default": [],
+        "templates": {
+            "group": {
+                "name": "群级配置",
+                "items": {
+                    "group_id": {
+                        "description": "目标群号",
+                        "hint": "留空表示不启用该配置。",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "default_card_days": {
+                        "description": "指令发卡默认时长（天）",
+                        "hint": "指令发卡未指定天数时使用的时长。设为 0 表示必须指定天数。",
+                        "type": "float",
+                        "default": 0
+                    },
+                    "max_concurrent": {
+                        "description": "同时体验人数上限",
+                        "hint": "该群所有体验卡激活时，同一时间最多可同时体验的人数，超出后无法激活。设为 0 表示不限制。",
+                        "type": "int",
+                        "default": 0
+                    },
+                    "blacklist": {
+                        "description": "黑名单",
+                        "hint": "名单内的成员不会因等级达标收到体验卡，也不会参与轮换抽签。",
+                        "type": "list",
+                        "default": []
+                    }
+                },
+                "display_item": "group_id"
+            },
+            "level_card": {
+                "name": "等级达标发卡",
+                "items": {
+                    "group_id": {
+                        "description": "目标群号",
+                        "hint": "留空表示不启用该规则。",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "min_level": {
+                        "description": "发卡等级门槛",
+                        "hint": "成员到达该群等级后自动获得体验卡，支持配置多个等级，每达到一个门槛可各领一张。等级回落不会重复发放。",
+                        "type": "list",
+                        "default": [
+                            60
+                        ]
+                    },
+                    "card_days": {
+                        "description": "体验卡时长（天）",
+                        "hint": "达标自动发放的卡片时长，激活后到期自动回收。与等级门槛一一对应，每达到一个门槛，发放对应时长的体验卡。",
+                        "type": "list",
+                        "default": [
+                            3
+                        ]
+                    }
+                },
+                "display_item": "group_id"
+            },
+            "rotation": {
+                "name": "周期轮换",
+                "display_item": "group_id",
+                "items": {
+                    "group_id": {
+                        "description": "目标群号",
+                        "hint": "留空表示不启用该规则。",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "min_level": {
+                        "description": "抽签等级门槛",
+                        "hint": "成员到达该群等级后可参与抽签。",
+                        "type": "int",
+                        "default": 60,
+                        "slider": {
+                            "min": 0,
+                            "max": 100,
+                            "step": 1
+                        }
+                    },
+                    "cycle_days": {
+                        "description": "轮换周期（天）",
+                        "hint": "每个周期从达标人群中随机抽取一人成为管理员，到期自动换人。",
+                        "type": "float",
+                        "default": 7
+                    },
+                    "admin_count": {
+                        "description": "每周期管理员人数",
+                        "hint": "每个周期抽取并任命的管理员人数。",
+                        "type": "int",
+                        "default": 1,
+                        "slider": {
+                            "min": 1,
+                            "max": 20,
+                            "step": 1
+                        }
+                    },
+                    "level_weighted": {
+                        "description": "按等级加权抽取",
+                        "hint": "开启后，等级越高的成员被抽中概率越大。关闭则纯随机。",
+                        "type": "bool",
+                        "default": false
+                    },
+                    "round_robin": {
+                        "description": "轮次抽取",
+                        "hint": "开启后，本圈内已抽中的人不再参与抽签，全部达标者抽过一轮后才可再次被抽中，保证机会均等。",
+                        "type": "bool",
+                        "default": false
+                    }
+                }
+            },
+            "draw_card": {
+                "name": "抽体验卡",
+                "display_item": "group_id",
+                "items": {
+                    "group_id": {
+                        "description": "目标群号",
+                        "hint": "留空表示不启用该规则。",
+                        "type": "string",
+                        "default": ""
+                    },
+                    "min_level": {
+                        "description": "抽取等级门槛",
+                        "hint": "只有等级达标且不在黑名单的成员才会被抽中。",
+                        "type": "int",
+                        "default": 60,
+                        "slider": {
+                            "min": 0,
+                            "max": 100,
+                            "step": 1
+                        }
+                    },
+                    "card_days": {
+                        "description": "抽到的体验卡时长（天）",
+                        "hint": "被抽中成员获得的体验卡时长。",
+                        "type": "float",
+                        "default": 3
+                    },
+                    "level_weighted": {
+                        "description": "按等级加权抽取",
+                        "hint": "开启后，等级越高的成员被抽中概率越大。关闭则纯随机。",
+                        "type": "bool",
+                        "default": false
+                    }
+                }
+            }
+        }
+    }
+}

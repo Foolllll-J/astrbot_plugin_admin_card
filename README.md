@@ -1,14 +1,107 @@
-# astrbot-plugin-helloworld
+<div align="center">
 
-AstrBot 插件模板 / A template plugin for AstrBot plugin feature
+# 🎴 QQ 群管体验卡
 
-> [!NOTE]
-> This repo is just a template of [AstrBot](https://github.com/AstrBotDevs/AstrBot) Plugin.
-> 
-> [AstrBot](https://github.com/AstrBotDevs/AstrBot) is an agentic assistant for both personal and group conversations. It can be deployed across dozens of mainstream instant messaging platforms, including QQ, Telegram, Feishu, DingTalk, Slack, LINE, Discord, Matrix, etc. In addition, it provides a reliable and extensible conversational AI infrastructure for individuals, developers, and teams. Whether you need a personal AI companion, an intelligent customer support agent, an automation assistant, or an enterprise knowledge base, AstrBot enables you to quickly build AI applications directly within your existing messaging workflows.
+<i>👑 皇帝轮流做，今年到我家</i>
 
-# Supports
+![License](https://img.shields.io/badge/license-AGPL--3.0-green?style=flat-square)
+![Python](https://img.shields.io/badge/python-3.10+-blue?style=flat-square&logo=python&logoColor=white)
+![AstrBot](https://img.shields.io/badge/framework-AstrBot-ff6b6b?style=flat-square)
 
-- [AstrBot Repo](https://github.com/AstrBotDevs/AstrBot)
-- [AstrBot Plugin Development Docs (Chinese)](https://docs.astrbot.app/dev/star/plugin-new.html)
-- [AstrBot Plugin Development Docs (English)](https://docs.astrbot.app/en/dev/star/plugin-new.html)
+</div>
+
+## 💡 简介
+
+一款为 [**AstrBot**](https://github.com/AstrBotDevs/AstrBot) 设计的管理体验插件。让普通群友在限定时间内体验群管理员身份，到期自动回收；支持按群配置**等级达标自动发卡**、**周期随机轮换**等玩法。
+
+---
+
+## 🚀 功能特性
+
+* **🖐️ 手动发卡/抽卡/撤卡**: 管理员向指定或随机群友发放体验卡，指定天数；随时可一键全量撤销
+* **🏅 等级达标自动发卡**: 配置等级门槛，成员到达该群等级后自动获得体验卡并收到通知（支持多个门槛，等级回落不重复发放）
+* **🔁 周期随机轮换**: 每个周期从达标人群中随机抽取对象成为管理员，到期自动换人
+* **⚖️ 等级加权抽取**: 轮换可选按等级加权，等级越高抽中概率越大
+* **🔄 轮次抽取**: 轮换可选轮次模式，本圈抽过的人不再参与，全部抽过一轮后才可再次被抽，保证机会均等
+
+---
+
+## 📖 使用指南
+
+> [!CAUTION]
+> * Bot 必须是群主时才能设置或取消管理员。
+> * 管理类指令仅限 Bot 管理员或配置的「特权用户」使用。
+
+### 🃏 发放体验卡
+
+**格式**:
+
+```
+/管理体验卡 [天数] @目标 [@目标 ...]
+```
+
+**示例**:
+
+```
+/管理体验卡 3 @小明 @小红
+```
+
+给小明、小红各发放 3 天体验卡；不写天数时使用该群规则配置的体验卡时长，未配置规则时需指定天数。
+
+### 🎮 使用体验卡
+
+```
+/使用体验卡 [序号]
+```
+
+激活自己名下的体验卡，立即成为群管理员，体验至到期时间自动回收。不写序号则激活全部未使用的卡。
+
+### 📋 查看与撤销
+
+```
+/我的体验卡              # 查看自己的卡（所有人可用）
+/查看体验卡 @目标         # 查看对方体验卡及卡序号（管理员/特权用户）
+/体验卡名单              # 查看本群体验中/持卡用户汇总（管理员）
+/撤销体验卡 [序号|0] [@目标] # 撤销体验卡：0=终止对方正在体验的管理期限（未使用卡保留）；序号=撤销该组一张未使用卡；不写=全部撤销（管理员）
+```
+
+### 🎰 抽体验卡
+
+```
+/抽体验卡 [天数]   # 从等级达标成员中随机抽取一人发放体验卡（管理员/特权用户；不写天数用规则默认时长）
+```
+
+### 🔄 轮换周期
+
+```
+/查看本轮   # 查看当前周期有没有人轮值、距离下次轮换还剩多久（所有人可用）
+/跳过本轮   # 下掉现任体验管理员，本周期空置，周期顺延
+/重抽本轮   # 立即重新抽签（下掉现任并重新抽人，周期重新计时）
+```
+
+---
+
+## ⚙️ 配置说明
+
+首次加载后，请在 AstrBot 后台 -> 插件 页面找到本插件进行设置。所有配置项都有详细的说明和介绍。
+
+---
+
+## 🔄 版本历史
+
+详见 [CHANGELOG.md](./CHANGELOG.md)
+
+---
+
+## ❤️ 支持
+
+* [AstrBot 帮助文档](https://astrbot.app)
+* 如果您在使用中遇到问题，欢迎在本仓库提交 [Issue](https://github.com/Foolllll-J/astrbot_plugin_admin_card/issues)。
+
+---
+
+<div align="center">
+
+**如果本插件对你有帮助，欢迎点个 ⭐ Star 支持一下！**
+
+</div>
