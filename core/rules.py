@@ -648,7 +648,7 @@ class RuleEngine:
         segments.append(
             {
                 "type": "text",
-                "data": {"text": f" 成为本轮体验管理员，任期 {rule['cycle_days']} 天"},
+                "data": {"text": f" 成为本轮体验管理员，任期 {format_days(rule['cycle_days'])} 天"},
             }
         )
         await self.plugin.api.send_group_segments(gid, segments, platform_id=pid)
