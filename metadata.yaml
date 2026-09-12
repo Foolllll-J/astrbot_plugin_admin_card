@@ -2,7 +2,7 @@ name: astrbot_plugin_admin_card
 display_name: QQ 群管体验卡
 short_desc: 皇帝轮流做，今年到我家
 desc: 让普通群友能体验有限期的群管理员身份，支持手动发卡/撤卡/抽卡、等级达标自动发卡、周期随机轮换管理员。
-version: v1.0.1
+version: v1.0.2
 author: Foolllll
 author_url: https://github.com/Foolllll-J
 repo: https://github.com/Foolllll-J/astrbot_plugin_admin_card

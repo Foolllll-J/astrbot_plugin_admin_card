@@ -485,15 +485,23 @@ class AdminCardPlugin(Star):
         if not rot:
             yield event.plain_result("该群未配置轮换规则")
             return
-        names = {}
-        for m in await self.api.get_group_member_list(gid):
-            uid = str(m.get("user_id") or "")
-            if uid:
-                names[uid] = str(m.get("card") or m.get("nickname") or "")
+        current_uids = [str(uid) for uid in (rot.get("current_uids") or [])]
+        member_infos = await asyncio.gather(
+            *(
+                self.api.get_group_member_info(
+                    gid, uid, platform_id=event.get_platform_id()
+                )
+                for uid in current_uids
+            )
+        )
+        names = {
+            uid: str(info.get("card") or info.get("nickname") or "")
+            for uid, info in zip(current_uids, member_infos)
+        }
         lines = ["本轮状态"]
-        if rot.get("current_uids"):
+        if current_uids:
             parts = [
-                display_name(names.get(uid, ""), uid) for uid in rot["current_uids"]
+                display_name(names.get(uid, ""), uid) for uid in current_uids
             ]
             lines.append(f"当前轮值：{'、'.join(parts)}")
         else:
